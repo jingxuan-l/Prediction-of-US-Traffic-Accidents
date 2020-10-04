@@ -1,4 +1,6 @@
 # Prediction-of-US-Traffic-Accidents
+https://github.com/HeruWang743/Prediction-of-US-Traffic-Accidents
+
 Analysis of US Traffic Accident Data: Predicting accidents
 
 Jingxuan Li, jl4267@cornell.edu
