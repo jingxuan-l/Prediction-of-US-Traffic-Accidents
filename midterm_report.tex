@@ -1,0 +1,247 @@
+\documentclass[twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsfonts} 
+\usepackage{amsmath}
+\DeclareMathOperator*{\minimize}{minimize}
+\usepackage[nohead]{geometry}
+\usepackage[singlespacing]{setspace}
+\usepackage{numprint}
+\usepackage[bottom]{footmisc}
+\usepackage{indentfirst}
+\usepackage{endnotes}
+\usepackage{graphicx}
+\usepackage[labelfont=bf]{caption}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{natbib}
+\setlength{\bibsep}{0.0pt}
+\usepackage{footnote}
+\usepackage{makecell}
+\usepackage{multirow,booktabs,threeparttable}
+\usepackage{pdflscape}
+\usepackage{ntheorem}
+\usepackage{thmtools}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{epstopdf}
+\usepackage{bm}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{pstricks}
+\usepackage{pst-node,pst-plot}
+\usepackage[percent]{overpic}
+\usepackage[title]{appendix}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{pdfpages}
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\Large\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\normalsize}
+
+\setcounter{MaxMatrixCols}{30}
+\newtheorem{theorem}{Theorem}
+\newtheorem{hypothesis}{H}
+\newtheorem{acknowledgement}{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\makeatletter
+\def\@biblabel#1{\hspace*{-\labelsep}}
+\makeatother
+\geometry{left=0.9in,right=0.9in,top=0.90in,bottom=1.0in}
+\raggedbottom 
+
+\usepackage{siunitx}%for digit rounding
+\sisetup{
+        detect-mode,
+        tight-spacing           = true,
+        group-digits            = false,
+        input-signs             = ,
+        input-symbols           = ,
+        input-open-uncertainty  = ,
+        input-close-uncertainty = ,
+        table-align-text-pre    = false,
+        round-mode              = places,
+        round-precision         = 4,
+        table-space-text-pre    = (,
+        table-space-text-post   = ),
+        }
+\usepackage{adjustbox}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{commath}
+\newcommand{\RomanNumeralCaps}[1] {\MakeUppercase{\romannumeral #1}}
+\renewcommand{\baselinestretch}{1.4}
+\usepackage{float}
+\usepackage{verbatim}
+
+\usepackage{algorithm,algpseudocode}
+
+\newcounter{algsubstate}
+\renewcommand{\thealgsubstate}{\alph{algsubstate}}
+\newenvironment{algsubstates}
+  {\setcounter{algsubstate}{0}%
+   \renewcommand{\State}{%
+     \stepcounter{algsubstate}%
+     \Statex {\footnotesize\thealgsubstate:}\space}}
+  {}
+
+\title{Predicting Severity in US Traffic Accidents \\ -- }
+\author{Jingxuan Li \footnote{Cornell University, $jl4267@cornell.edu$} \and Jialiang Wei \footnote{Cornell University, $jw2684@cornell.eduu$}}
+\date{November 8, 2020}
+
+\begin{document}
+\begin{titlepage}
+\maketitle
+\thispagestyle{empty}
+\bigskip
+\begin{abstract}
+This research employed gradient boosting techniques with a countrywide traffic accident dataset, which covers 49 states of the United States and is continually collected from February 2016 till now, to study the impacts of different factors, geographical locations, environmental stimuli and other relevant factors on the severity of accidents. The main goal of this research is to examine the significant factors that impact the severity of accidents, and to discuss how federal and local governments, as well as drivers can make changes to prevent or reduce the impact of accidents in different environments.
+
+\end{abstract}
+\clearpage
+\pagenumbering{roman}
+\end{titlepage}
+\pagenumbering{arabic}
+
+
+
+\section{Explanatory Data Analysis}
+
+\subsection{Data Description}
+Our project employs the \textit{US Accidents} from Kaggle.com. This is a countrywide traffic accident dataset, which covers 49 states of the United
+States. The data is continuously being collected from February 2016, currently there
+are about 3.5 million accident records. For every accident record we
+have data on the source of the accident report, description of the event,
+severity of the accident, start and end time, latitude and longitude information, zip code, time-stamp of weather observation record,
+temperature, wind chill, humidity, air pressure, visibility, wind direction and speed,
+presence of crossing, railway, traffic signal, junction, etc., and the period of the day.
+We will build learning models to study how different factors impact the severity of a car accident.
+
+\subsection{Data Visualization}
+\subsubsection{Accidents Summary}
+Figure 1 shows the number of accidents in different states recorded in the dataset. Based on the bar chart, the state with index of 3 has much more accidents than the other states, which is referred to "CA" (California).
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{accident.png}
+    \caption{Number of Accidents}
+\end{figure}
+
+Figure 2 shows the normalized numbers of accidents over number of automobiles in different states (\textit{US Department of Transportation}), as this ratio means on average how many car accidents per car in each state. Based on the figure 1, we want to know whether the number of accidents is correlated with states or other factors. It shows that except index 6 (South Carolina) has a higher ratio, all other states exhibit similar level as in figure 1. The correlation between the number of accidents and the total number of automobiles in each state is 0.91, which is consistent with what we expect that the more automobiles in a state, the higher possibility of traffic accidents.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{weighted_accidents.png}
+    \caption{Traffic Accidents in Different States}
+\end{figure} 
+
+
+\subsection{Data Preprocessing}
+\subsubsection{Missing Values}
+In the dataset, the missing values appears in Temperature (F), Humidity (\%), Visibility (miles), Weather\_Condition (rain, snow, thunderstorm, fog, etc.), and Sunrise\_Sunset (day or night). Since the dataset is larger enough with 3\,513\,617 records in total, the records with missing values in any category are dropped. We still have 3\,414\,253 records with complete information which is large enough for us to do analyses.
+
+\subsubsection{Ordinal Values}
+The response variable in the model is the severity of the accident, a number between 1 and 4, where 1 indicates the least impact on traffic and 4 indicates a significant impact on traffic. As severity is a ordinal value, we will choose a model that can be adapted to fit a multi-classification response variable.
+\subsubsection{Nominal Values}
+The column “Start\_Time" shows start time of the accident in local time zone. We classify them into four time windows (0 AM \- 6 AM, 6 AM \- 12 PM, 12 PM \- 6 PM, and 6 PM -\ 12 AM) and use one-hot encoding. The column “Street" shows the street name in address field. We believe that the accidents happened on interstate highways may be more severe than others, so we use one-hot encoding to classify the street with a name starting  with “I-" which represents the interstate street. The columns “side" which contains nominal data and shows the relative side (right or left) in the accident on a street, “Weather\_Condition", and “Sunrise\_Sunset" contains nominal data and shows the period of day (day or night). We use one-hot encoding for each of them to make their values more expressive.
+
+\subsubsection{Additional Note}
+Since the data is recorded chronologically, we shuffle the data and split into training data and test data to avoid autocorrelation and overfitting. We tried with ten-fold cross-validation, however, the dataset is so large that our computational power is not capable. 
+
+\section{Initial Modeling}
+\subsection{Model Selection}
+Based on our parameter selection from data preprocessing and data encoding, we predict that there will be significant overfitting issues with the data. Indeed, when we run LASSO regression on our dataset, the lambda yields meaningless results (i.e. we get our optimal lambda = 0, which is the same as OLS). In addition, due to the large volume of data (1.98 Gigabytes, 481,409,673 data points), we can only consider models that are extremely efficient and more robust in preventing overfitting. Thus, we decide to use the gradient boosting method (R package: xgboost) to fit our data. 
+
+\subsection{Gradient Boosting Algorithm}
+\begin{algorithm}
+
+  \begin{algorithmic}[1]
+    \State Initialize 
+      \begin{equation}
+        \mu^{(0)}(x) = \text{arg min}_{\theta} \sum_{i=1}^n \textit{L} (y_i,\gamma) 
+      \end{equation}  
+    \State For m = 1 to \textit{M}
+    \begin{algsubstates} 
+     \State For \textit{i} = 1,2,...,n compute	
+      	\begin{equation}
+        	r_i^{(m-1)}=-\frac{\partial \textit{L}(y_i,\mu(x_i))}{\partial \mu (x_i)}
+      	\end{equation}
+      \State Fit a regression tree to the current residuals $r_i^{(m-1)}$ giving terminal regions $R_{jm}$,\textit{j} = 1,...,\textit{J} compute
+       \State For \textit{j} = 1,...,\textit{J} compute
+        \begin{equation}
+        \gamma_{jm} = \text{arg min}_{\gamma} \sum_{x_i \in  R_{jm}} \textit{L} (y_i,\mu^{m-1}(x_i)+\gamma)
+        \end{equation}
+        \State Update $\mu^m (x)=\mu^{m-1}(x)+v\sum^J_{j=1} \gamma_{jm}\textit{I}(x\in R_{jm})$
+    \end{algsubstates}
+    \State Output $\hat{\mu}(x)=\mu^M (x)$
+  \end{algorithmic}
+\end{algorithm}
+
+Due to page limit, for more information, please refer to \textit{The Elements of Statistical Learning pp 359-361.}\\
+
+Thus, we can see that to fit a gradient boosting algorithm, we need tuning process. Given limited computational power, we tuned the below factors: max\_depth (the complexity of each fitting tree, positively correlated with J in above algorithm), eta (learning rate, $\textit{v}$ in the algorithm), subsample (subsample a portion of the data in our training data in each iteration), colsample\_bytree (subsample a portion of input parameters in each iteration). 
+
+
+\subsection{Tuning Parameter Selection}
+As our response variable (severity) is an ordinal value, we defined two error functions for multi-classification models that calculate the number of differences between our model prediction output and observed data. We define two parameters: percentage number of errors and percentage size of errors:
+
+\begin{align}  
+    \displaystyle{\text{percentage-number-of-error: }\frac{\sum_{i=1}^N 1_{\{y_i \neq \hat{y_i}\}} }{N}}
+\end{align}
+
+\begin{align}  
+    \displaystyle{\text{percentage-size-of-error: }\frac{\sum_{i=1}^N |y_i-\hat{y_i}|1_{\{y_i \neq \hat{y_i}\}} }{N}}
+\end{align}
+
+We tuned a total of 9 models, with the tuning parameter as follows: (max\_depth, eta, subsample, colsample\_bytree) = (5, 0.3, 0.9, 1), (11, 0.3, 0.9, 1), (20, 0.3, 0.9, 1), (20, 0.3, 0.9, 0.8), (20, 0.3, 0.9, 0.5), (20, 0.3, 0.5, 0.8), (20, 0.5, 0.5, 0.8), (20, 0.5, 0.9, 0.8), (20, 0.7, 0.9, 0.8). Figure 3 shows the percentage number of errors and percentage size of errors. The fitted models are in the same sequence as the sequence from above. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{Tuning_Parameter.png}
+    \caption{Errors of different Tuning Models}
+\end{figure}
+
+We can see that model 8 with tuning parameters (20, 0.5, 0.9, 0.8) has the smallest in both number of errors and size of errors. Thus, given our limited computational power, we chose this model to study the dataset’s relative importance factors (to tune these 9 models, we ran for 15 hours with 3.8GHz CPU and 32G memory). 
+
+\subsection{Relative Importance Factors}
+By fitting with our tuned gradient boosting model, we can see the relative importance of each factor. Figure 4 shows the percentage gains in loss function for each input parameters to the severity of car accidents.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{importance.png}
+    \caption{Relative Importance of Input Parameters}
+\end{figure}
+
+We can see that geographical location (latitude and longitude), types of streets (Interstate highway or others), temperature, weather and humidity are some of the most important factors to the severity of a car accident. However, some of other factors that we intuitively regard also important, such as sunrise\_sunset (day/night), visibility and traffic signal are not as important. This shows that drivers already pays close attention when the road condition is complicated (in dark or foggy conditions), and drivers follow traffic signals closely. However, the high importance in location and weather shows authorities should invest more in certain regions for road maintenance such as snow removal. The high importance in types of streets also shows that drivers should pay close attention with high speed limit roads. 
+
+
+\section{Potential Improvement}
+While our model shows impressive prediction results, there is still work to do to get a more accurate and holistic model. Firstly, we need to seek for additional computational power to continue researching this dataset, as it is beyond PC's capacity if we are going to try more complex models. Secondly, we will also explore other data encoding methods to include more input variables that we think is significant. Thirdly, we will try other models that can further improve overfitting and solve classification more effective, such as neural networks. Last but not least, we will examine balanced errors, as some parts of our data are not balanced, with most severities in level 2 and 3, and few of them are in level 1 and 4. 
+
+\end{document}
